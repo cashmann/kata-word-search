@@ -1,0 +1,25 @@
+{
+  "name": "kata-word-search",
+  "version": "1.0.0",
+  "description": "Word Search Kata ================ In this exercise you will build a program to complete a [word search](https://en.wikipedia.org/wiki/Word_search) problem.",
+  "main": "wordSearch.js",
+  "dependencies": {
+    "eslint": "^5.7.0",
+    "jest": "^23.6.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "lint": "eslint .",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cashmann/kata-word-search.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cashmann/kata-word-search/issues"
+  },
+  "homepage": "https://github.com/cashmann/kata-word-search#readme"
+}
