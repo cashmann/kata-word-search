@@ -20,4 +20,11 @@ describe('word search', ()=>{
     expect(result['BONES']).toEqual(['(0,0)','(1,0)','(2,0)','(3,0)','(4,0)']);
     expect(result['KIRK']).toEqual(['(0,1)','(1,1)','(2,1)','(3,1)']);
   });
+  it('will return the locations in a given matrix of single character strings of any vertically-placed words top to bottom in a given array of strings',()=>{
+    let wordMatrix = [['B','K'],['O','I'],['N','R'],['E','K'],['S','S']];
+    let wordsToFind = ['BONES', 'KIRK'];
+    let result = wordSearch(wordsToFind, wordMatrix);
+    expect(result['BONES']).toEqual(['(0,0)','(0,1)','(0,2)','(0,3)','(0,4)']);
+    expect(result['KIRK']).toEqual(['(1,0)','(1,1)','(1,2)','(1,3)']);
+  });
 });
