@@ -7,4 +7,10 @@ describe('word search', ()=>{
     let result = wordSearch(wordToFind, wordMatrix);
     expect(result).toEqual(['(0,0)','(1,0)','(2,0)','(3,0)','(4,0)']);
   });
+  it('will return the location in a given matrix of single character strings of a vertically-placed word read top to bottom in a given string', ()=>{
+    let wordMatrix = [['B','K'],['O','I'],['N','R'],['E','K'],['S','S']];
+    let wordToFind = 'BONES';
+    let result = wordSearch(wordToFind, wordMatrix);
+    expect(result).toEqual(['(0,0)', '(0,1)','(0,2)','(0,3)', '(0,4)']);
+  });
 });
