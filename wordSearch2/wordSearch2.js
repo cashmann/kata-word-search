@@ -3,10 +3,40 @@ const Queue = require('./queue');
 
 module.exports = (wordsArray, characterMatrix) =>{
   if(!Array.isArray(wordsArray)){
-    if(wordsArray.length > characterMatrix[0].length){
-      return ['(0,0)','(0,1)', '(0,2)', '(0,3)', '(0,4)'];
+    wordsArray = [wordsArray];
+  }
+  let result = {};
+  let columns = characterMatrix[0].length;
+  let heap = new Heap();
+  heap.deserialize(characterMatrix, columns);
+  wordsArray.forEach(word =>{ 
+    result[word] = findWord(word, columns, heap);
+  });
+  return result;
+};
+const generateCoordinates = (columns, start, direction, amount) =>{
+  let coors = [];
+  let xCoor;
+  let yCoor;
+  for(let i=0; i<amount; i++){
+    if(!(xCoor >= 0) || !(yCoor >= 0)){
+      xCoor = (start % columns);
+      yCoor = 0;
+      while(start >= columns){
+        start -= columns;
+        yCoor++;
+      }
     }
-    else return ['(0,0)','(1,0)','(2,0)','(3,0)','(4,0)'];
+    else{
+      if(direction === 'down'){
+        yCoor++;
+      }
+      if(direction === 'right'){
+        xCoor++;
+      }
+    }
+    let coor = `(${xCoor},${yCoor})`;
+    coors.push(coor);
   }
   return coors;
 };
