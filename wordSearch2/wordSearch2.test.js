@@ -75,4 +75,15 @@ describe('word search', ()=>{
     let result = wordSearch(wordToFind, wordMatrix);
     expect(result['SOME']).toEqual(['(1,4)', '(2,3)','(3,2)','(4,1)']);
   });
+  it('will return the location in a given matrix of single character strings of an obliquely-placed word read bottom-right to top-left in a given string', ()=>{
+    let wordMatrix = [
+      ['S','M','I','T','K'],
+      ['S','E','O','I','E'],
+      ['E','H','N','M','N'],
+      ['Y','D','O','O','M'],
+      ['K','S','U','T','B']];
+    let wordToFind = 'BONE';
+    let result = wordSearch(wordToFind, wordMatrix);
+    expect(result['BONE']).toEqual(['(4,4)','(3,3)','(2,2)','(1,1)']);
+  });
 });

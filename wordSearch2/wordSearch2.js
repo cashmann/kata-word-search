@@ -15,9 +15,8 @@ module.exports = (wordsArray, characterMatrix) =>{
   return result;
 };
 
-const findWord = (word, columns, heap) =>{
+const findWord = (word, columns, heap, matrixStart = 0, rejectedDirections = []) =>{
   let wordCoordinates;
-  let matrixStart = 0;
   let wordDirection;
   while(!wordDirection){
     if(matrixStart === heap.nodes.length){
@@ -29,7 +28,7 @@ const findWord = (word, columns, heap) =>{
     if(startingNode){
       matrixStart = startingNode.index;
       queue.enqueue(startingNode);
-      wordDirection = handleQueue(queue, heap, word);
+      wordDirection = handleQueue(queue, heap, word, rejectedDirections);
       if(!wordDirection){
         matrixStart = startingNode.index + 1;
       }
@@ -37,11 +36,11 @@ const findWord = (word, columns, heap) =>{
       matrixStart++;
     }
   }
-  wordCoordinates = generateCoordinates(columns, matrixStart, wordDirection, word.length);
+  wordCoordinates = generateCoordinates(columns, matrixStart, wordDirection, word, heap, rejectedDirections);
   return wordCoordinates;
 };
 
-const handleQueue = (queue, heap, word) =>{
+const handleQueue = (queue, heap, word, rejectedDirections) =>{
   let startingPointer = 1;
   let dirCounter = new DirectionCounter();
   while(queue.head){
@@ -51,7 +50,7 @@ const handleQueue = (queue, heap, word) =>{
       searchDirection = 'all';
     } else searchDirection = queue.head.directed;
     dirCounter.directions.forEach(direction => {
-      if(queue.head.directions[direction.string]){
+      if(queue.head.directions[direction.string] && !rejectedDirections.includes(direction.string)){
         if((searchDirection === 'all' || searchDirection === direction.string) && queue.head.directions[direction.string].data === word[startingPointer]){
           nextIndex = queue.head.directions[direction.string].index;
           queue.enqueue(heap.nodes[nextIndex]);
@@ -74,10 +73,13 @@ const handleQueue = (queue, heap, word) =>{
   return wordDirection;
 };
 
-const generateCoordinates = (columns, start, direction, amount) =>{
+const generateCoordinates = (columns, startPoint, direction, word, heap, rejectedDirections) =>{
+  let amount = word.length;
+  let start = startPoint;
   let coors = [];
   let xCoor;
   let yCoor;
+  let rows = heap.length/columns;
   for(let i=0; i<amount; i++){
     if(!(xCoor >= 0) || !(yCoor >= 0)){
       xCoor = (start % columns);
@@ -98,6 +100,10 @@ const generateCoordinates = (columns, start, direction, amount) =>{
       } else if(direction.includes('left')){
         xCoor--;
       }
+    }
+    if(0 > xCoor || xCoor > columns-1 || 0 > yCoor || yCoor > rows-1){
+      rejectedDirections.push(direction);
+      return findWord(word, columns, heap, startPoint, rejectedDirections);
     }
     let coor = `(${xCoor},${yCoor})`;
     coors.push(coor);
@@ -130,6 +136,10 @@ class DirectionCounter{
       },
       {
         string: 'up right',
+        count: 0,
+      },
+      {
+        string: 'up left',
         count: 0,
       },
     ];
