@@ -53,4 +53,15 @@ describe('word search', ()=>{
     expect(result['BONES']).toEqual(['(0,4)', '(0,3)','(0,2)','(0,1)', '(0,0)']);
     expect(result['KIRK']).toEqual(['(1,3)','(1,2)','(1,1)','(1,0)']);
   });
+  it('will return the location in a given matrix of single character strings of an obliquely-placed word read top-left to bottom-right in a given string', ()=>{
+    let wordMatrix = [
+      ['B','M','I','T','K'],
+      ['S','O','O','I','Q'],
+      ['E','H','N','M','N'],
+      ['Y','D','O','E','M'],
+      ['K','S','U','T','S']];
+    let wordToFind = 'BONES';
+    let result = wordSearch(wordToFind, wordMatrix);
+    expect(result['BONES']).toEqual(['(0,0)', '(1,1)','(2,2)','(3,3)', '(4,4)']);
+  });
 });

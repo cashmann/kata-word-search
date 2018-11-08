@@ -7,6 +7,7 @@ class Node{
       'right': null,
       'left': null,
       'up': null,
+      'down right': null,
     };
     this.directed = null;
     this.next = null;
@@ -26,6 +27,7 @@ class Heap{
       let rightNode = new Node(matrix[i+1], i+1);
       let leftNode = new Node(matrix[i-1], i-1);
       let upNode = new Node(matrix[i-width], i-width);
+      let downRightNode = new Node(matrix[i+width+1], i+width+1);
       if(downNode.data){
         newNode.directions['down'] = downNode;
       }
@@ -37,6 +39,9 @@ class Heap{
       }
       if(upNode.data){
         newNode.directions['up'] = upNode;
+      }
+      if(downRightNode.data){
+        newNode.directions['down right'] = downRightNode;
       }
       this.nodes.push(newNode);
     });

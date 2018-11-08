@@ -25,9 +25,9 @@ const findWord = (word, columns, heap) =>{
       return word.coordinates;
     }
     let startingNode = heap.nodes.find(node => node.data === word[0] && node.index > matrixStart-1);
-    matrixStart = startingNode.index;
     let queue = new Queue;
     if(startingNode){
+      matrixStart = startingNode.index;
       queue.enqueue(startingNode);
       wordDirection = handleQueue(queue, heap, word);
       if(!wordDirection){
@@ -88,14 +88,14 @@ const generateCoordinates = (columns, start, direction, amount) =>{
       }
     }
     else{
-      if(direction === 'down'){
+      if(direction.includes('down')){
         yCoor++;
-      } else if(direction === 'up'){
+      } else if(direction.includes('up')){
         yCoor--;
       }
-      if(direction === 'right'){
+      if(direction.includes('right')){
         xCoor++;
-      } else if(direction === 'left'){
+      } else if(direction.includes('left')){
         xCoor--;
       }
     }
@@ -122,6 +122,10 @@ class DirectionCounter{
       },
       {
         string: 'up',
+        count: 0,
+      },
+      {
+        string: 'down right',
         count: 0,
       },
     ];
