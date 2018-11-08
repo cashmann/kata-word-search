@@ -36,17 +36,17 @@ const handleQueue = (queue, heap, word, startingPoint) =>{
   let dirCounter = new DirectionCounter();
   while(queue.head){
     let nextIndex;
-    let direction;
+    let searchDirection;
     if(!queue.head.directed){
-      direction = 'all';
-    } else direction = queue.head.directed;
-    dirCounter.directions.forEach(dir => {
-      if(queue.head.directions[dir.string]){
-        if((direction === 'all' || direction === dir.string) && queue.head.directions[dir.string].data === word[startingPoint]){
-          nextIndex = queue.head.directions[dir.string].index;
+      searchDirection = 'all';
+    } else searchDirection = queue.head.directed;
+    dirCounter.directions.forEach(direction => {
+      if(queue.head.directions[direction.string]){
+        if((searchDirection === 'all' || searchDirection === direction.string) && queue.head.directions[direction.string].data === word[startingPoint]){
+          nextIndex = queue.head.directions[direction.string].index;
           queue.enqueue(heap.nodes[nextIndex]);
-          queue.tail.directed = dir.string;
-          dir.count++;
+          queue.tail.directed = direction.string;
+          direction.count++;
           startingPoint++;
         }
       }
@@ -83,6 +83,8 @@ const generateCoordinates = (columns, start, direction, amount) =>{
       }
       if(direction === 'right'){
         xCoor++;
+      } else if(direction === 'left'){
+        xCoor--;
       }
     }
     let coor = `(${xCoor},${yCoor})`;
@@ -96,11 +98,15 @@ class DirectionCounter{
     this.directions = [
       {
         string: 'down',
-        count: '0',
+        count: 0,
       },
       {
         string: 'right',
-        count: '0',
+        count: 0,
+      },
+      {
+        string: 'left',
+        count: 0,
       },
     ];
   }

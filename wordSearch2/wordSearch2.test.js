@@ -27,4 +27,10 @@ describe('word search', ()=>{
     expect(result['BONES']).toEqual(['(0,0)','(0,1)','(0,2)','(0,3)','(0,4)']);
     expect(result['KIRK']).toEqual(['(1,0)','(1,1)','(1,2)','(1,3)']);
   });
+  it('will return the location in a given matrix of single character strings of a horizontally-placed word read right to left in a given string', ()=>{
+    let wordMatrix = [['S','E','N','O','B'],['K', 'I', 'R', 'K', 'S']];
+    let wordToFind = 'BONES';
+    let result = wordSearch(wordToFind, wordMatrix);
+    expect(result['BONES']).toEqual(['(4,0)','(3,0)','(2,0)','(1,0)','(0,0)']);
+  });
 });
