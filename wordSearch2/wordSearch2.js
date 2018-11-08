@@ -14,6 +14,56 @@ module.exports = (wordsArray, characterMatrix) =>{
   });
   return result;
 };
+
+const findWord = (word, columns, heap) =>{
+  let wordCoordinates;
+  let startingPoint = 0;
+  let matrixStart = 0;
+  let wordDirection;
+  let startingNode = heap.nodes.find(node => node.data === word[startingPoint] && node.index > matrixStart-1);
+  matrixStart = startingNode.index;
+  let queue = new Queue;
+  if(startingNode){
+    startingPoint++;
+    queue.enqueue(startingNode);
+    wordDirection = handleQueue(queue, heap, word, startingPoint);
+  }
+  wordCoordinates = generateCoordinates(columns, matrixStart, wordDirection, word.length);
+  return wordCoordinates;
+};
+
+const handleQueue = (queue, heap, word, startingPoint) =>{
+  let dirCounter = new DirectionCounter();
+  while(queue.head){
+    let nextIndex;
+    let direction;
+    if(!queue.head.directed){
+      direction = 'all';
+    } else direction = queue.head.directed;
+    dirCounter.directions.forEach(dir => {
+      if(queue.head.directions[dir.string]){
+        if((direction === 'all' || direction === dir.string) && queue.head.directions[dir.string].data === word[startingPoint]){
+          nextIndex = queue.head.directions[dir.string].index;
+          queue.enqueue(heap.nodes[nextIndex]);
+          queue.tail.directed = dir.string;
+          dir.count++;
+          startingPoint++;
+        }
+      }
+    });
+    if(queue.head){
+      queue.dequeue();
+    }
+  }
+  let wordDirection;
+  dirCounter.directions.forEach(dir =>{
+    if(dir.count === word.length-1){
+      wordDirection = dir.string;
+    }
+  });
+  return wordDirection;
+};
+
 const generateCoordinates = (columns, start, direction, amount) =>{
   let coors = [];
   let xCoor;
