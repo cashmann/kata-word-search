@@ -80,6 +80,8 @@ const generateCoordinates = (columns, start, direction, amount) =>{
     else{
       if(direction === 'down'){
         yCoor++;
+      } else if(direction === 'up'){
+        yCoor--;
       }
       if(direction === 'right'){
         xCoor++;
@@ -106,6 +108,10 @@ class DirectionCounter{
       },
       {
         string: 'left',
+        count: 0,
+      },
+      {
+        string: 'up',
         count: 0,
       },
     ];

@@ -33,4 +33,10 @@ describe('word search', ()=>{
     let result = wordSearch(wordToFind, wordMatrix);
     expect(result['BONES']).toEqual(['(4,0)','(3,0)','(2,0)','(1,0)','(0,0)']);
   });
+  it('will return the location in a given matrix of single character strings of a vertically-placed word read bottom to top in a given string', ()=>{
+    let wordMatrix = [['S','K'],['E','I'],['N','R'],['O','K'],['B','S']];
+    let wordToFind = 'BONES';
+    let result = wordSearch(wordToFind, wordMatrix);
+    expect(result['BONES']).toEqual(['(0,4)', '(0,3)','(0,2)','(0,1)', '(0,0)']);
+  });
 });
