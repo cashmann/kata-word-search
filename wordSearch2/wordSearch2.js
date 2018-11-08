@@ -128,6 +128,10 @@ class DirectionCounter{
         string: 'down right',
         count: 0,
       },
+      {
+        string: 'up right',
+        count: 0,
+      },
     ];
   }
 }
