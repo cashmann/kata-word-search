@@ -82,8 +82,8 @@ describe('word search', ()=>{
       ['E','H','N','M','N'],
       ['Y','D','O','O','M'],
       ['K','S','U','T','B']];
-    let wordToFind = 'BONE';
+    let wordToFind = 'BONES';
     let result = wordSearch(wordToFind, wordMatrix);
-    expect(result['BONE']).toEqual(['(4,4)','(3,3)','(2,2)','(1,1)']);
+    expect(result['BONES']).toEqual(['(4,4)','(3,3)','(2,2)','(1,1)','(0,0)']);
   });
 });

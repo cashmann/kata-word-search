@@ -53,10 +53,12 @@ const handleQueue = (queue, heap, word, rejectedDirections) =>{
       if(queue.head.directions[direction.string] && !rejectedDirections.includes(direction.string)){
         if((searchDirection === 'all' || searchDirection === direction.string) && queue.head.directions[direction.string].data === word[startingPointer]){
           nextIndex = queue.head.directions[direction.string].index;
-          queue.enqueue(heap.nodes[nextIndex]);
-          queue.tail.directed = direction.string;
-          direction.count++;
-          startingPointer++;
+          if(heap.nodes[nextIndex]){
+            queue.enqueue(heap.nodes[nextIndex]);
+            queue.tail.directed = direction.string;
+            direction.count++;
+            startingPointer++;
+          }
         }
       }
     });
