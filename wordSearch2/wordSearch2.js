@@ -17,22 +17,32 @@ module.exports = (wordsArray, characterMatrix) =>{
 
 const findWord = (word, columns, heap) =>{
   let wordCoordinates;
-  let startingPoint = 0;
   let matrixStart = 0;
   let wordDirection;
-  let startingNode = heap.nodes.find(node => node.data === word[startingPoint] && node.index > matrixStart-1);
-  matrixStart = startingNode.index;
-  let queue = new Queue;
-  if(startingNode){
-    startingPoint++;
-    queue.enqueue(startingNode);
-    wordDirection = handleQueue(queue, heap, word, startingPoint);
+  while(!wordDirection){
+    if(matrixStart === heap.nodes.length){
+      word.coordinates = 'N/A';
+      return word.coordinates;
+    }
+    let startingNode = heap.nodes.find(node => node.data === word[0] && node.index > matrixStart-1);
+    matrixStart = startingNode.index;
+    let queue = new Queue;
+    if(startingNode){
+      queue.enqueue(startingNode);
+      wordDirection = handleQueue(queue, heap, word);
+      if(!wordDirection){
+        matrixStart = startingNode.index + 1;
+      }
+    } else{
+      matrixStart++;
+    }
   }
   wordCoordinates = generateCoordinates(columns, matrixStart, wordDirection, word.length);
   return wordCoordinates;
 };
 
-const handleQueue = (queue, heap, word, startingPoint) =>{
+const handleQueue = (queue, heap, word) =>{
+  let startingPointer = 1;
   let dirCounter = new DirectionCounter();
   while(queue.head){
     let nextIndex;
@@ -42,12 +52,12 @@ const handleQueue = (queue, heap, word, startingPoint) =>{
     } else searchDirection = queue.head.directed;
     dirCounter.directions.forEach(direction => {
       if(queue.head.directions[direction.string]){
-        if((searchDirection === 'all' || searchDirection === direction.string) && queue.head.directions[direction.string].data === word[startingPoint]){
+        if((searchDirection === 'all' || searchDirection === direction.string) && queue.head.directions[direction.string].data === word[startingPointer]){
           nextIndex = queue.head.directions[direction.string].index;
           queue.enqueue(heap.nodes[nextIndex]);
           queue.tail.directed = direction.string;
           direction.count++;
-          startingPoint++;
+          startingPointer++;
         }
       }
     });

@@ -39,4 +39,18 @@ describe('word search', ()=>{
     let result = wordSearch(wordToFind, wordMatrix);
     expect(result['BONES']).toEqual(['(0,4)', '(0,3)','(0,2)','(0,1)', '(0,0)']);
   });
+  it('will return the locations in a given matrix of single character strings of any horizontally-placed words read right to left in a given array of strings', ()=>{
+    let wordMatrix = [['S','E','N','O','B'],['K', 'R', 'I', 'K', 'S']];
+    let wordsToFind = ['BONES', 'KIRK'];
+    let result = wordSearch(wordsToFind, wordMatrix);
+    expect(result['BONES']).toEqual(['(4,0)','(3,0)','(2,0)','(1,0)','(0,0)']);
+    expect(result['KIRK']).toEqual(['(3,1)','(2,1)','(1,1)','(0,1)']);
+  });
+  it('will return the locations in a given matrix of single character strings of any vertically-placed words bottom to top in a given array of strings',()=>{
+    let wordMatrix = [['S','K'],['E','R'],['N','I'],['O','K'],['B','S']];
+    let wordsToFind = ['BONES', 'KIRK'];
+    let result = wordSearch(wordsToFind, wordMatrix);
+    expect(result['BONES']).toEqual(['(0,4)', '(0,3)','(0,2)','(0,1)', '(0,0)']);
+    expect(result['KIRK']).toEqual(['(1,3)','(1,2)','(1,1)','(1,0)']);
+  });
 });
