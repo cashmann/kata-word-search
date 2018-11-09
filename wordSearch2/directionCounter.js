@@ -2,42 +2,42 @@ module.exports = class DirectionCounter{
   constructor(width = 0){
     this.directions = [
       {
-        string: 'down',
+        string: 'down n',
         count: 0,
         modifier: width,
       },
       {
-        string: 'right',
+        string: 'right n',
         count: 0,
         modifier: 1,
       },
       {
-        string: 'left',
+        string: 'left n',
         count: 0,
         modifier: -1,
       },
       {
-        string: 'up',
+        string: 'up n',
         count: 0,
         modifier: -width,
       },
       {
-        string: 'down right',
+        string: 'down n right n',
         count: 0,
         modifier: width + 1,
       },
       {
-        string: 'up right',
+        string: 'up n right n',
         count: 0,
         modifier: -width + 1,
       },
       {
-        string: 'up left',
+        string: 'up n left n',
         count: 0,
         modifier: -width - 1,
       },
       {
-        string: 'down left',
+        string: 'down n left n',
         count: 0,
         modifier: width + 1,
       },

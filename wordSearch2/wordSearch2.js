@@ -50,7 +50,6 @@ const handleQueue = (queue, heap, word, rejectedDirections) =>{
       searchDirection = 'all';
     } else searchDirection = queue.head.directed;
     dirCounter.directions.forEach(direction => {
-      console.log(direction.string, queue.head.directions);
       if(queue.head.directions[direction.string] && !rejectedDirections.includes(direction.string)){
         if((searchDirection === 'all' || searchDirection === direction.string) && queue.head.directions[direction.string].data === word[queue.head.indexToGo]){
           nextIndex = queue.head.directions[direction.string].index;
@@ -93,14 +92,14 @@ const generateCoordinates = (columns, startPoint, direction, word, heap, rejecte
       }
     }
     else{
-      if(direction.includes('down')){
+      if(direction.includes('down n')){
         yCoor++;
-      } else if(direction.includes('up')){
+      } else if(direction.includes('up n')){
         yCoor--;
       }
-      if(direction.includes('right')){
+      if(direction.includes('right n')){
         xCoor++;
-      } else if(direction.includes('left')){
+      } else if(direction.includes('left n')){
         xCoor--;
       }
     }

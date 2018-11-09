@@ -5,14 +5,14 @@ class Node{
     this.indexToGo = 1;
     this.directed = null;
     this.directions = {
-      'down': null,
-      'right': null,
-      'left': null,
-      'up': null,
-      'down right': null,
-      'up right': null,
-      'up left': null,
-      'down left': null,
+      'down n': null,
+      'right n': null,
+      'left n': null,
+      'up n': null,
+      'down n right n': null,
+      'up n right n': null,
+      'up n left n': null,
+      'down n left n': null,
     };
     this.next = null;
     this.previous = null;
@@ -31,33 +31,33 @@ class Heap{
       let rightNode = new Node(matrix[i+1], i+1);
       let leftNode = new Node(matrix[i-1], i-1);
       let upNode = new Node(matrix[i-width], i-width);
-      let downRightNode = new Node(matrix[i+width+1], i+width+1);
-      let upRightNode = new Node(matrix[i-width+1], i-width+1);
+      let downrightNode = new Node(matrix[i+width+1], i+width+1);
+      let uprightNode = new Node(matrix[i-width+1], i-width+1);
       let upLeftNode = new Node(matrix[i-width-1], i-width-1);
       let downLeftNode = new Node(matrix[i+width-1], i+width-1);
       if(downNode.data){
-        newNode.directions['down'] = downNode;
+        newNode.directions['down n'] = downNode;
       }
       if(rightNode.data){
-        newNode.directions['right'] = rightNode;
+        newNode.directions['right n'] = rightNode;
       }
       if(leftNode.data){
-        newNode.directions['left'] = leftNode;
+        newNode.directions['left n'] = leftNode;
       }
       if(upNode.data){
-        newNode.directions['up'] = upNode;
+        newNode.directions['up n'] = upNode;
       }
-      if(downRightNode.data){
-        newNode.directions['down right'] = downRightNode;
+      if(downrightNode.data){
+        newNode.directions['down n right n'] = downrightNode;
       }
-      if(upRightNode){
-        newNode.directions['up right'] = upRightNode;
+      if(uprightNode.data){
+        newNode.directions['up n right n'] = uprightNode;
       }
-      if(upLeftNode){
-        newNode.directions['up left'] = upLeftNode;
+      if(upLeftNode.data){
+        newNode.directions['up n left n'] = upLeftNode;
       }
-      if(downLeftNode){
-        newNode.directions['down left'] = downLeftNode;
+      if(downLeftNode.data){
+        newNode.directions['down n left n'] = downLeftNode;
       }
       this.nodes.push(newNode);
     });
