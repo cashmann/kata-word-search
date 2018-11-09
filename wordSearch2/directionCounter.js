@@ -39,7 +39,7 @@ module.exports = class DirectionCounter{
       {
         string: 'down n left n',
         count: 0,
-        modifier: width + 1,
+        modifier: width - 1,
       },
     ];
   }
