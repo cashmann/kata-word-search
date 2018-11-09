@@ -41,9 +41,8 @@ const findWord = (word, columns, heap, matrixStart = 0, rejectedDirections = [])
 };
 
 const handleQueue = (queue, heap, word, rejectedDirections) =>{
-  let startingPointer = 1;
   let dirCounter = new DirectionCounter();
-  while(queue.head){
+  while(queue.head && queue.head.indexToGo <= word.length){
     let nextIndex;
     let searchDirection;
     if(!queue.head.directed){
@@ -51,13 +50,13 @@ const handleQueue = (queue, heap, word, rejectedDirections) =>{
     } else searchDirection = queue.head.directed;
     dirCounter.directions.forEach(direction => {
       if(queue.head.directions[direction.string] && !rejectedDirections.includes(direction.string)){
-        if((searchDirection === 'all' || searchDirection === direction.string) && queue.head.directions[direction.string].data === word[startingPointer]){
+        if((searchDirection === 'all' || searchDirection === direction.string) && queue.head.directions[direction.string].data === word[queue.head.indexToGo]){
           nextIndex = queue.head.directions[direction.string].index;
           if(heap.nodes[nextIndex]){
             queue.enqueue(heap.nodes[nextIndex]);
             queue.tail.directed = direction.string;
+            queue.tail.indexToGo = queue.head.indexToGo + 1;
             direction.count++;
-            startingPointer++;
           }
         }
       }
@@ -67,6 +66,7 @@ const handleQueue = (queue, heap, word, rejectedDirections) =>{
     }
   }
   let wordDirection;
+  
   dirCounter.directions.forEach(dir =>{
     if(dir.count === word.length-1){
       wordDirection = dir.string;
@@ -142,6 +142,10 @@ class DirectionCounter{
       },
       {
         string: 'up left',
+        count: 0,
+      },
+      {
+        string: 'down left',
         count: 0,
       },
     ];
