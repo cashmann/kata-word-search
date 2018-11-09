@@ -1,5 +1,6 @@
 const Heap = require('./heap');
 const Queue = require('./queue');
+const DirectionCounter = require('./directionCounter');
 
 module.exports = (wordsArray, characterMatrix) =>{
   if(!Array.isArray(wordsArray)){
@@ -49,6 +50,7 @@ const handleQueue = (queue, heap, word, rejectedDirections) =>{
       searchDirection = 'all';
     } else searchDirection = queue.head.directed;
     dirCounter.directions.forEach(direction => {
+      console.log(direction.string, queue.head.directions);
       if(queue.head.directions[direction.string] && !rejectedDirections.includes(direction.string)){
         if((searchDirection === 'all' || searchDirection === direction.string) && queue.head.directions[direction.string].data === word[queue.head.indexToGo]){
           nextIndex = queue.head.directions[direction.string].index;
@@ -66,7 +68,6 @@ const handleQueue = (queue, heap, word, rejectedDirections) =>{
     }
   }
   let wordDirection;
-  
   dirCounter.directions.forEach(dir =>{
     if(dir.count === word.length-1){
       wordDirection = dir.string;
@@ -112,42 +113,3 @@ const generateCoordinates = (columns, startPoint, direction, word, heap, rejecte
   }
   return coors;
 };
-
-class DirectionCounter{
-  constructor(){
-    this.directions = [
-      {
-        string: 'down',
-        count: 0,
-      },
-      {
-        string: 'right',
-        count: 0,
-      },
-      {
-        string: 'left',
-        count: 0,
-      },
-      {
-        string: 'up',
-        count: 0,
-      },
-      {
-        string: 'down right',
-        count: 0,
-      },
-      {
-        string: 'up right',
-        count: 0,
-      },
-      {
-        string: 'up left',
-        count: 0,
-      },
-      {
-        string: 'down left',
-        count: 0,
-      },
-    ];
-  }
-}
