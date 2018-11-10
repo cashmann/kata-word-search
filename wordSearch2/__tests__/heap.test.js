@@ -1,4 +1,4 @@
-const Heap = require('./heap');
+const Heap = require('../heap');
 
 describe('heap', ()=>{
   it('initializes with an empty array of nodes', ()=>{

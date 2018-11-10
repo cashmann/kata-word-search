@@ -1,4 +1,4 @@
-const Queue = require('./queue');
+const Queue = require('../queue');
 
 describe('Queue', ()=>{
   it('can enqueue an item', ()=>{

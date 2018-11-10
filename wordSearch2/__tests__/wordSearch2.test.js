@@ -1,4 +1,4 @@
-const wordSearch = require('./wordSearch2');
+const wordSearch = require('../wordSearch2');
 
 describe('word search, given a matrix of single character strings', ()=>{
   it('will return the location of a horizontally-placed word read left to right in a given string', ()=>{
