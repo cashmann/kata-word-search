@@ -3,6 +3,9 @@ const DirectionCounter = require('./directionCounter');
 class Node{
   constructor(data, index, directionList){
     this.data = data;
+    if(this.data){
+      this.data = this.data.toUpperCase();
+    }
     this.index = index;
     this.indexToGo = 1;
     this.directed = null;

@@ -8,10 +8,22 @@ module.exports = (wordsArray, characterMatrix) =>{
   }
   let result = {};
   let columns = characterMatrix[0].length;
+  characterMatrix.forEach(array =>{
+    if(array.length !== columns){
+      throw new Error('Invalid character grid/matrix. Please ensure all rows in your grid/matrix input are equal in length.');
+    }
+  });
   let heap = new Heap();
   heap.deserialize(characterMatrix, columns);
-  wordsArray.forEach(word =>{ 
+  wordsArray.forEach(word =>{
+    if(typeof(word) !== 'string'){
+      throw new Error('Unexpected data type. Please submit words to find as a string or an array of strings.');
+    }
+    word = word.toUpperCase(); 
     result[word] = findWord(word, columns, heap);
+    if(result[word] === undefined){
+      result[word] = 'Not Found';
+    }
   });
   return result;
 };

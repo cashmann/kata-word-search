@@ -125,4 +125,46 @@ describe('word search, given a matrix of single character strings', ()=>{
     expect(result['SULU']).toEqual(['(3,3)','(2,2)','(1,1)','(0,0)']);
     expect(result['UHURA']).toEqual(['(4,0)','(3,1)','(2,2)','(1,3)','(0,4)']);
   });
+  it('will reject an input that asks to find a non-string value', ()=>{
+    let wordMatrix = [
+      ['S','M','I','T','K'],
+      ['S','E','O','I','E'],
+      ['E','H','N','M','N'],
+      ['Y','D','O','O','M'],
+      ['K','S','U','T','B']];
+    let find = 1;
+    expect(function(){wordSearch(find, wordMatrix);}).toThrowError();
+  });
+  it('will reject a matrix with uneven rows', ()=>{
+    let wordMatrix = [
+      ['S','M','I','T','K'],
+      ['S','E','O','I'],
+      ['E','H','N','M','N'],
+      ['Y','D'],
+      ['K','S','U','T','B']];
+    let find = 'ME';
+    expect(function(){wordSearch(find, wordMatrix);}).toThrowError();
+  });
+  it('will work regardless of capitalization', ()=>{
+    let wordMatrix = [
+      ['S','M','I','T','K'],
+      ['S','e','O','I','E'],
+      ['E','H','N','M','N'],
+      ['Y','D','O','O','M'],
+      ['K','S','U','T','B']];
+    let find = 'me';
+    let result = wordSearch(find, wordMatrix);
+    expect(result['ME']).toEqual(['(1,0)', '(1,1)']);
+  });
+  it('will return "Not Found" in place of the coordinates for any word that could not be found in the given matrix', ()=>{
+    let wordMatrix = [
+      ['S','M','I','T','K'],
+      ['S','e','O','I','E'],
+      ['E','H','N','M','N'],
+      ['Y','D','O','O','M'],
+      ['K','S','U','T','B']];
+    let find = 'zfsl;k';
+    let result = wordSearch(find, wordMatrix);
+    expect(result['ZFSL;K']).toBe('Not Found');
+  });
 });
