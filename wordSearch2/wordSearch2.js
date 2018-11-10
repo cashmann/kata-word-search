@@ -76,32 +76,29 @@ const handleQueue = (queue, heap, word, rejectedDirections) =>{
 };
 
 const generateCoordinates = (columns, startPoint, direction, word, heap, rejectedDirections) =>{
+  let directionIterator = new DirectionCounter(columns).directions;
+  Object.freeze(directionIterator);
   let amount = word.length;
   let start = startPoint;
   let coors = [];
   let xCoor;
-  let yCoor;
+  let yCoor = 0;
   let rows = heap.length/columns;
   for(let i=0; i<amount; i++){
     if(!(xCoor >= 0) || !(yCoor >= 0)){
       xCoor = (start % columns);
-      yCoor = 0;
       while(start >= columns){
         start -= columns;
         yCoor++;
       }
     }
     else{
-      if(direction.includes('down n')){
-        yCoor++;
-      } else if(direction.includes('up n')){
-        yCoor--;
-      }
-      if(direction.includes('right n')){
-        xCoor++;
-      } else if(direction.includes('left n')){
-        xCoor--;
-      }
+      directionIterator.forEach(dir =>{
+        if(direction === dir.string){
+          yCoor += dir.yMod;
+          xCoor += dir.xMod;
+        }
+      });
     }
     if(0 > xCoor || xCoor > columns-1 || 0 > yCoor || yCoor > rows-1){
       rejectedDirections.push(direction);

@@ -21,6 +21,7 @@ class Heap{
   }
   deserialize(matrix, width){
     let directionList = new DirectionCounter(width).directions;
+    Object.freeze(directionList);
     matrix = [].concat.apply([], matrix);
     matrix.forEach((val,i) =>{
       let newNode = new Node(val, i, directionList);

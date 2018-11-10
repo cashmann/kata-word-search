@@ -38,7 +38,7 @@ describe('heap', ()=>{
     matrix = [].concat.apply([], matrix);
     heap.nodes.forEach((node, i) =>{
       if(matrix[i+matrixWidth]){
-        expect(matrix[i+matrixWidth]).toBe(node.directions['down n'].data);
+        expect(matrix[i+matrixWidth]).toBe(node.directions['down '].data);
       }
     });
   });
@@ -56,7 +56,7 @@ describe('heap', ()=>{
     matrix = [].concat.apply([], matrix);
     heap.nodes.forEach((node, i) =>{
       if(matrix[i+1]){
-        expect(matrix[i+1]).toBe(node.directions['right n'].data);
+        expect(matrix[i+1]).toBe(node.directions['right '].data);
       }
     });
   });
